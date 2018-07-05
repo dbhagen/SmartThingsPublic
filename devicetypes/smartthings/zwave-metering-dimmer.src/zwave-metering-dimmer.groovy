@@ -16,7 +16,7 @@
  *
  */
 metadata {
-	definition (name: "Z-Wave Metering Dimmer", namespace: "smartthings", author: "SmartThings", ocfDeviceType: "oic.d.light", runLocally: true, minHubCoreVersion: '000.017.0012', executeCommandsLocally: true) {
+	definition (name: "Z-Wave Metering Dimmer", namespace: "smartthings", author: "SmartThings", ocfDeviceType: "oic.d.switch", runLocally: true, minHubCoreVersion: '000.017.0012', executeCommandsLocally: true) {
 		capability "Switch"
 		capability "Polling"
 		capability "Power Meter"
@@ -297,9 +297,9 @@ private crcEncap(physicalgraph.zwave.Command cmd) {
 }
 
 private encap(physicalgraph.zwave.Command cmd) {
-	if (zwaveInfo.zw.contains("s")) {
+	if (zwaveInfo?.zw?.contains("s")) {
 		secEncap(cmd)
-	} else if (zwaveInfo.cc.contains("56")){
+	} else if (zwaveInfo?.cc?.contains("56")){
 		crcEncap(cmd)
 	} else {
 		log.debug "no encapsulation supported for command: $cmd"
